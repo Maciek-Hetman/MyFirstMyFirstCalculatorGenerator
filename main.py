@@ -2,6 +2,7 @@
 #   - Generate file in chunks (size of chunk is chosen by user)
 #   - Improve TUI
 #   - Add args support
+#   - Support different languages (c++, python, javascript, java...)
 
 
 def create_ifs(sign, number_range, chunk_size, file_name):
@@ -34,8 +35,9 @@ def create_ifs(sign, number_range, chunk_size, file_name):
             f.write(tmp)
             tmp = ""
             chunk_counter += 1
-            print("Generating chunk number %d of %d" % (chunk_counter, (number_range // chunk_size)))
-
+            print("Generated chunk number %d of %d" % (chunk_counter, (number_range // chunk_size)))
+            
+    f.write(tmp)
     f.close()
 
 
@@ -52,7 +54,7 @@ b = int(input('Input second number: '))\n\n
         f.close()
 
     for sign in signs:
-        print("\nGenerating sign %s" % sign)
+        print("\nGenerating sign %s (%d of %d)" % (sign, signs.index(sign), len(signs)))
         create_ifs(sign, number_range, chunk_size, file_name)
 
 
