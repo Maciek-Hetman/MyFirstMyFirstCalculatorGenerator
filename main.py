@@ -9,7 +9,7 @@ def create_ifs(sign, number_range, chunk_size, file_name):
     pass_counter = 0
     chunk_counter = 0
 
-    f = open(file_name, "w")
+    f = open(file_name, "a")
 
     print("\nGenerating first chunk")
     for i in range(0, number_range+1):
@@ -50,6 +50,7 @@ b = int(input('Input second number: '))\n\n
     
     with open(file_name, "w") as f:
         f.write(code)
+        f.close()
 
     for sign in signs:
         print("\nGenerating sign %s" % sign)
