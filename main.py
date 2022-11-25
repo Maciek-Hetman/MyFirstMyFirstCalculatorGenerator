@@ -11,7 +11,6 @@ def create_ifs(sign, number_range, chunk_size, file_name):
 
     f = open(file_name, "a")
 
-    print("\nGenerating first chunk")
     for i in range(0, number_range+1):
         for j in range(0, number_range+1):
             # TODO: Optimize this
