@@ -4,6 +4,7 @@
 #   - Add args support
 #   - Support different languages (c++, python, javascript, java...)
 
+from sys import argv, exit
 
 def create_ifs(sign, number_range, chunk_size, file_name):
     tmp = ""
@@ -58,30 +59,58 @@ b = int(input('Input second number: '))\n\n
         create_ifs(sign, number_range, chunk_size, file_name)
 
 
-def main():
-    print("Welcome to unofficial my_first_calculator.py generator\n")
-
-    NUMBER_RANGE = 0
-    while NUMBER_RANGE == 0:
+def main(args):
+    if len(args) == 1:
         try:
-            NUMBER_RANGE = int(input("Choose number range: "))
+            NUMBER_RANGE = int(input("Enter number range[10000]: "))
         except ValueError:
-            print("gib number")
-    
-    try:
-        CHUNK_SIZE = int(input("Choose chunk size[50]: "))
-    except ValueError:
-        CHUNK_SIZE = 50
+            NUMBER_RANGE = 10000
+            print("Entered invalid number range. Usning default 10 000")
 
-    OUTPUT_FILE = input("Choose file name[my_first_calculator.py]: ")
+        try:
+            CHUNK_SIZE = int(input("Choose chunk size[500]: "))
+        except ValueError:
+            CHUNK_SIZE = 500
 
-    if OUTPUT_FILE == "":
-        OUTPUT_FILE = "my_first_calculator.py"
-    elif OUTPUT_FILE[-3:] != ".py":
-        OUTPUT_FILE += ".py"
+        OUTPUT_FILE = input("Choose file name[my_first_calculator.py]: ")
+
+        if OUTPUT_FILE == "":
+            OUTPUT_FILE = "my_first_calculator.py"
+        elif OUTPUT_FILE[-3:] != ".py":
+            OUTPUT_FILE += ".py"
+    elif 1 < len(args) <= 3:
+        print("Error: Incorrect number of arguments")
+        exit(1)
+    else:
+        try:
+            NUMBER_RANGE = int(args[1])
+        except ValueError:
+            NUMBER_RANGE = 10000
+            print("Entered invalid number range, using default 10 000")
+        
+        try:
+            CHUNK_SIZE = int(args[2])
+        except ValueError:
+            CHUNK_SIZE = 500
+            print("Entered invalid chunk size, using default 500")
+        
+        try:
+            OUTPUT_FILE = str(args[3])
+        except ValueError:
+            OUTPUT_FILE = "my_first_calculator.py"
+            print("Entered invalid output file name, using default my_first_calculator.py")
+
+        if OUTPUT_FILE[-3:] != ".py":
+            OUTPUT_FILE += ".py"
     
+
+    print(OUTPUT_FILE)
+    print(CHUNK_SIZE)
+    print(NUMBER_RANGE)
+    
+    print("Welcome to unofficial my_first_calculator.py generator")
     create_file(OUTPUT_FILE, NUMBER_RANGE, CHUNK_SIZE)
 
 
 if __name__ == '__main__':
-    main()
+    main(argv)
